@@ -3,9 +3,9 @@
 [![Build Status](https://github.com/spring-petclinic/spring-petclinic-microservices/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-microservices/actions/workflows/maven-build.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This microservices branch was initially derived from [AngularJS version](https://github.com/spring-petclinic/spring-petclinic-angular1) to demonstrate how to split sample Spring application into [microservices](http://www.martinfowler.com/articles/microservices.html).
-To achieve that goal, we use Spring Cloud Gateway, Spring Cloud Circuit Breaker, Spring Cloud Config, Micrometer Tracing, Resilience4j, Open Telemetry 
-and the Eureka Service Discovery from the [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix) technology stack.
+This microservices architecture has been designed to fully leverage the capabilities of the Spring Cloud framework. It demonstrates key features such as application health monitoring, performance metrics, and comprehensive documentation, all accessible through the Swagger UI specification, which serves as the built-in documentation for the application.
+
+Additionally, the architecture integrates Prometheus for robust metrics collection and Grafana for powerful data visualization. This integration enhances observability, allowing for real-time monitoring and analysis of application performance and health.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/spring-petclinic/spring-petclinic-microservices)
 
@@ -179,39 +179,8 @@ All those three REST controllers `OwnerResource`, `PetResource` and `VisitResour
 | Gulp              | [Tasks automated by Gulp: minify CSS and JS, generate CSS from LESS, copy other static resources](spring-petclinic-ui/gulpfile.js)  |
 | Angular JS        | [app.js, controllers and templates](spring-petclinic-ui/src/scripts/)  |
 
-## Pushing to a Docker registry
 
-Docker images for `linux/amd64` and `linux/arm64` platforms have been published into DockerHub 
-in the [springcommunity](https://hub.docker.com/u/springcommunity) organization.
-You can pull an image:
-```bash
-docker pull springcommunity/spring-petclinic-config-server
-```
-You may prefer to build then push images to your own Docker registry.
 
-### Choose your Docker registry
-
-You need to define your target Docker registry.
-Make sure you're already logged in by running `docker login <endpoint>` or `docker login` if you're just targeting Docker hub.
-
-Setup the `REPOSITORY_PREFIX` env variable to target your Docker registry.
-If you're targeting Docker hub, simple provide your username, for example:
-```bash
-export REPOSITORY_PREFIX=springcommunity
-```
-
-For other Docker registries, provide the full URL to your repository, for example:
-```bash
-export REPOSITORY_PREFIX=harbor.myregistry.com/petclinic
-```
-
-To push Docker image for the `linux/amd64` and the `linux/arm64` platform to your own registry, please use the command line:
-```bash
-mvn clean install -Dmaven.test.skip -P buildDocker -Ddocker.image.prefix=${REPOSITORY_PREFIX} -Dcontainer.build.extraarg="--push" -Dcontainer.platform="linux/amd64,linux/arm64"
-```
-
-The `scripts/pushImages.sh` and `scripts/tagImages.sh` shell scripts could also be used once you build your image with the `buildDocker` maven profile.
-The `scripts/tagImages.sh` requires to declare the `VERSION` env variable.
 
 ## Compiling the CSS
 
