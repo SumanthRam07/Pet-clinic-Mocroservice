@@ -1,13 +1,13 @@
 # Distributed version of the Spring PetClinic Sample Application built with Spring Cloud 
 
-[![Build Status](https://github.com/spring-petclinic/spring-petclinic-microservices/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-microservices/actions/workflows/maven-build.yml)
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This microservices architecture has been designed to fully leverage the capabilities of the Spring Cloud framework. It demonstrates key features such as application health monitoring, performance metrics, and comprehensive documentation, all accessible through the Swagger UI specification, which serves as the built-in documentation for the application.
 
 Additionally, the architecture integrates Prometheus for robust metrics collection and Grafana for powerful data visualization. This integration enhances observability, allowing for real-time monitoring and analysis of application performance and health.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/spring-petclinic/spring-petclinic-microservices)
+
 
 ## Starting services locally without Docker
 
@@ -34,15 +34,11 @@ In order to start entire infrastructure using Docker, you have to build images b
 ``
 This requires `Docker` or `Docker desktop` to be installed and running.
 
-Alternatively you can also build all the images on `Podman`, which requires Podman or Podman Desktop to be installed and running.
+Alternatively you can also build all the images using `GoogleJib`, which requires Plugin to be added in your pom.xml 
 ```bash
-./mvnw clean install -PbuildDocker -Dcontainer.executable=podman
+./     mvn compile jib:dockerBuild
 ```
-By default, the Docker OCI image is build for an `linux/amd64` platform.
-For other architectures, you could change it by using the `-Dcontainer.platform` maven command line argument.
-For instance, if you target container images for an Apple M2, you could use the command line with the `linux/arm64` architecture:
-```bash
-./mvnw clean install -P buildDocker -Dcontainer.platform="linux/arm64"
+
 ```
 
 Once images are ready, you can start them with a single command
@@ -54,7 +50,7 @@ After starting services, it takes a while for API Gateway to be in sync with ser
 so don't be scared of initial Spring Cloud Gateway timeouts. You can track services availability using Eureka dashboard
 available by default at http://localhost:8761.
 
-The `main` branch uses an Eclipse Temurin with Java 17 as Docker base image.
+
 
 *NOTE: Under MacOSX or Windows, make sure that the Docker VM has enough memory to run the microservices. The default settings
 are usually not enough and make the `docker-compose up` painfully slow.*
@@ -94,9 +90,6 @@ Each service has its own specific role and communicates via REST APIs.
 ![Spring Petclinic Microservices architecture](docs/microservices-architecture-diagram.jpg)
 
 
-## In case you find a bug/suggested improvement for Spring Petclinic Microservices
-
-Our issue tracker is available here: https://github.com/spring-petclinic/spring-petclinic-microservices/issues
 
 ## Database configuration
 
@@ -192,23 +185,6 @@ using the Maven profile `css` of the `spring-petclinic-api-gateway`module.
 cd spring-petclinic-api-gateway
 mvn generate-resources -P css
 ```
-
-## Interesting Spring Petclinic forks
-
-The Spring Petclinic `main` branch in the main [spring-projects](https://github.com/spring-projects/spring-petclinic)
-GitHub org is the "canonical" implementation, currently based on Spring Boot and Thymeleaf.
-
-This [spring-petclinic-microservices](https://github.com/spring-petclinic/spring-petclinic-microservices/) project is one of the [several forks](https://spring-petclinic.github.io/docs/forks.html) 
-hosted in a special GitHub org: [spring-petclinic](https://github.com/spring-petclinic).
-If you have a special interest in a different technology stack
-that could be used to implement the Pet Clinic then please join the community there.
-
-
-## Contributing
-
-The [issue tracker](https://github.com/spring-petclinic/spring-petclinic-microservices/issues) is the preferred channel for bug reports, features requests and submitting pull requests.
-
-For pull requests, editor preferences are available in the [editor config](.editorconfig) for easy use in common text editors. Read more and download plugins at <http://editorconfig.org>.
 
 
 [Configuration repository]: https://github.com/spring-petclinic/spring-petclinic-microservices-config
